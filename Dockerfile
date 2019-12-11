@@ -1,20 +1,15 @@
-FROM  alpine:latest
-RUN   adduser -S -D -H -h /xmrig miner
-RUN   apk --no-cache upgrade && \
-      apk --no-cache add \
-        git \
-        cmake \
-        libuv-dev \
-        build-base && \
-      git clone https://github.com/xmrig/xmrig && \
-      cd xmrig && \
-      mkdir build && \
-      cmake -DCMAKE_BUILD_TYPE=Release . && \
-      make && \
-      apk del \
-        build-base \
-        cmake \
-        git
-USER miner
-WORKDIR    /xmrig
-ENTRYPOINT  ["./xmrig"]
+FROM ubuntu:16.04
+
+WORKDIR /app
+
+RUN apt-get update
+RUN apt-get install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
+RUN git clone https://github.com/bigbangcore/miner.git /app
+RUN mkdir /app/build
+RUN cmake .
+RUN make
+
+
+ENTRYPOINT ["./xmrig"]
+
+CMD ["--max-cpu-usage=100", "--url=bbc.uupool.cn:12812", "--user=19abmxh3v22vzzr694tv4kdhm98qxjz67g3hpvvfn1h5b31zq81aa4vb6", "--pass=Docker", "-k", "--algo=cn/bbc", "--http-host=0.0.0.0", "--http-port=8080"]˚
